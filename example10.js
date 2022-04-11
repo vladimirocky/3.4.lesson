@@ -23,3 +23,5 @@ async function fun2() {
     console.log(await sum(result2, 4));
 }
 fun2(); // 10
+
+
