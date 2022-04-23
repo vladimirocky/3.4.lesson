@@ -20,6 +20,7 @@ const data = {
 
 console.log("Start working..");
 console.log(data);
+ 
 
 /**
  * Тут попытка через setTimeout имитировать
@@ -35,6 +36,9 @@ setTimeout(() => {
      * 2. переключить флаг modifyStatus в true
      * 3. вывести data
      */
+    data.name = 'Aleksey';
+    data.modifyStatus = true;
+    console.log(data);
     console.log("End processing data!")
 }, 2000);
 
@@ -49,6 +53,7 @@ console.log("Continue work main program..");
 const promise = new Promise(function (resolve,reject) {
     console.log('Request data...');
     setTimeout(() => {
+        resolve(data)
         /**
          * Ващ код тут
          * 1. передать data в функцию resolve
@@ -57,24 +62,32 @@ const promise = new Promise(function (resolve,reject) {
 })
 
 promise.then(respData => {
-        console.log('Response ...');
+        console.log('Response ...'),
+        console.log(respData)
+        return respData
     /**
      * Ваш код тут
      * 1. вывести данные из промис
      * 2. передать данные дальше по цепочке
      */
     }
-).then( newData => {
+    ).then( newData => {
     console.log('Start modify data...');
     setTimeout( () => {
+        
+        data.name = ' oleg';
+        data.modifyStatus = true;
+    
         /**
          * Ваш код тут
          * 1. переключить modifyStatus в true объекта
          * 2. Изменить еще како-нибудь свойство объекта
          * 3. Вывести объект
          */
+     
+        console.log(newData);
         console.log('Stop modify data');
-    },8000)
+    },4000)
 }).catch(err => console.log("Error",err))
     .finally( () => console.log("Finally!"))
 
@@ -85,7 +98,27 @@ promise.then(respData => {
  */
 
 function* random(limit) {
+    let randomOddNumber = () =>{
+     const result = Math.floor(Math.random() * limit);
+        if(result % 2 === 0){
+            return result
+        } else if(result % 2 == 1){
+            return result + 1 
+        }
+    }
+
+
+    yield randomOddNumber()
+    yield randomOddNumber()
+    yield randomOddNumber()
+    while(true){
+        yield randomOddNumber
+    }
+}
+    
+
     /**
+     
      * Ваш код тут
      *
      * let randomOddNumber = () => {
@@ -98,7 +131,8 @@ function* random(limit) {
      * через yield
      */
 
-}
+
+
 const randomizer = random(100)
 console.log(randomizer.next().value)
 console.log(randomizer.next().value)
@@ -114,19 +148,29 @@ console.log(randomizer.next().value)
  */
 async function generateArray() {
     const arr = [53,342,3,235,63,56,546,457]
+    await new Promise((resolve,reject )=>{
+   setTimeout(()=> resolve(arr),1000 )
+   
+});
+ 
+}
     /**
      * Ваш код тут
      * 1. await new Promise ...
      * передать в промис функцию, принимающую resolve и вызывающую resolve спустя секунду
-     */
+     
     return arr //  результат не вернется пока не выполнится промис
 }
-
-function f() {
+*/
+  async function f() {
     /**
      * Ваш код тут
      * 1. вызвать асинхронную функцию, и отобразить ее результат
-     */
+ }
+ */
+ await generateArray()
+ console.log(generateArray());
+    
 }
+ f();
 
-f();
