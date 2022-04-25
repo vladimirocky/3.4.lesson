@@ -37,7 +37,8 @@ setTimeout(() => {
      * 3. вывести data
      */
     data.name = 'Aleksey';
-    data.modifyStatus = true;
+    Object.defineProperty(data,"modifyStatus"),{
+        modifyStatus:false}
     console.log(data);
     console.log("End processing data!")
 }, 2000);
