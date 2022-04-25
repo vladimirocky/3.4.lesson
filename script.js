@@ -101,9 +101,9 @@ function* random(limit) {
     let randomOddNumber = () =>{
      const result = Math.floor(Math.random() * limit);
         if(result % 2 === 0){
-            return result
-        } else if(result % 2 == 1){
-            return result + 1 
+            return result 
+        }else{
+            return randomOddNumber()
         }
     }
 
@@ -152,7 +152,7 @@ async function generateArray() {
    setTimeout(()=> resolve(arr),1000 )
    
 });
- 
+ return arr
 }
     /**
      * Ваш код тут
@@ -162,15 +162,14 @@ async function generateArray() {
     return arr //  результат не вернется пока не выполнится промис
 }
 */
-  async function f() {
+   function f() {
     /**
      * Ваш код тут
      * 1. вызвать асинхронную функцию, и отобразить ее результат
- }
+ 
  */
- await generateArray()
- console.log(generateArray());
-    
+
+    generateArray().then((resol)=>{console.log(resol)})
 }
  f();
 
