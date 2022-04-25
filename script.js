@@ -35,6 +35,12 @@ setTimeout(() => {
      * 2. переключить флаг modifyStatus в true
      * 3. вывести data
      */
+    data.name = 'Roma';
+ Object.defineProperty(data, 'modifyStatus',{
+    modifyStatus: true
+ });
+    console.log(data);
+
     console.log("End processing data!")
 }, 2000);
 
@@ -53,6 +59,7 @@ const promise = new Promise(function (resolve,reject) {
          * Ващ код тут
          * 1. передать data в функцию resolve
          */
+        resolve(data)
     },8000)
 })
 
@@ -63,6 +70,8 @@ promise.then(respData => {
      * 1. вывести данные из промис
      * 2. передать данные дальше по цепочке
      */
+    console.log(promise);
+    return respData;
     }
 ).then( newData => {
     console.log('Start modify data...');
@@ -73,7 +82,12 @@ promise.then(respData => {
          * 2. Изменить еще како-нибудь свойство объекта
          * 3. Вывести объект
          */
+        
+        data.modifyStatus = true;
+        data.numVal = 1;
+        console.log(data);
         console.log('Stop modify data');
+        return newData
     },8000)
 }).catch(err => console.log("Error",err))
     .finally( () => console.log("Finally!"))
@@ -85,24 +99,44 @@ promise.then(respData => {
  */
 
 function* random(limit) {
-    /**
-     * Ваш код тут
-     *
-     * let randomOddNumber = () => {
-     *      const result = Math.floor(Math.random() * limit);
-     * 1.     return -
-     *      result если он делится на 2 без остатка
-     *      иначе результат вызова randomOddNumber
-     * }
-     * 2. В бесконечном цикле возвращать результат вызова randomOddNumber()
-     * через yield
-     */
+    
+    //   Ваш код тут
+     
+      let randomOddNumber = () => {
+          
+           const result = Math.floor(Math.random() * limit);
+           if(result%2 == 0){
 
+               return result
+    }
+    else{
+        return randomOddNumber()
+    }
 }
+     yield randomOddNumber()
+     yield randomOddNumber()
+     yield randomOddNumber()
+   
+   
+     while(true){
+    yield randomOddNumber()
+}
+
+} 
+//    если он делится на 2 без остатка
+        //    иначе результат вызова randomOddNumber
+//   2. В бесконечном цикле возвращать результат вызова randomOddNumber()
+    //   через yield    
 const randomizer = random(100)
 console.log(randomizer.next().value)
 console.log(randomizer.next().value)
 console.log(randomizer.next().value)
+// for(const limit of randomizer){
+//     if (limit >= 100){
+//         break
+//     };
+//     console.log(limit);
+// }
 
 
 /**
@@ -119,14 +153,18 @@ async function generateArray() {
      * 1. await new Promise ...
      * передать в промис функцию, принимающую resolve и вызывающую resolve спустя секунду
      */
+     await new Promise((resolve, reject) => {
+        setTimeout(() => resolve(arr), 1000)
+      });
     return arr //  результат не вернется пока не выполнится промис
 }
 
-function f() {
-    /**
-     * Ваш код тут
-     * 1. вызвать асинхронную функцию, и отобразить ее результат
-     */
-}
 
-f();
+function f() {
+    //  * Ваш код тут
+    //  * 1. вызвать асинхронную функцию, и отобразить ее результат
+    generateArray().then((kata) => {
+      console.log(kata);
+    });
+  }
+f()
