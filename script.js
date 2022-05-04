@@ -46,8 +46,7 @@ setTimeout(() => {
      * ---------------------------------------------------------------------!
      * ---------------------------------------------------------------------!
      */
-    Object.defineProperty(data,"modifyStatus"),{
-        modifyStatus:false}
+      data.modifyStatus = true;
     console.log(data);
     console.log("End processing data!")
 }, 2000);
