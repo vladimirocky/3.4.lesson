@@ -29,6 +29,9 @@ console.log(data);
 console.log("Start processing data..");
 
 setTimeout(() => {
+
+    data.modifyStatus = true;
+    console.log(data);
     /**
      * Ваш код тут
      * 1. изменить name
@@ -49,6 +52,7 @@ console.log("Continue work main program..");
 const promise = new Promise(function (resolve,reject) {
     console.log('Request data...');
     setTimeout(() => {
+        resolve(data);
         /**
          * Ващ код тут
          * 1. передать data в функцию resolve
@@ -57,7 +61,8 @@ const promise = new Promise(function (resolve,reject) {
 })
 
 promise.then(respData => {
-        console.log('Response ...');
+        console.log('Response ...', respData);
+        
     /**
      * Ваш код тут
      * 1. вывести данные из промис
@@ -73,7 +78,9 @@ promise.then(respData => {
          * 2. Изменить еще како-нибудь свойство объекта
          * 3. Вывести объект
          */
-        console.log('Stop modify data');
+        data.modifyStatus = false;
+        data.numVal = 10;
+        console.log('Stop modify data', data);
     },8000)
 }).catch(err => console.log("Error",err))
     .finally( () => console.log("Finally!"))
@@ -97,8 +104,23 @@ function* random(limit) {
      * 2. В бесконечном цикле возвращать результат вызова randomOddNumber()
      * через yield
      */
+    let randomOddNumber = () => {
 
+        const result = Math.floor(Math.random() * limit);
+        
+        if (result%2 == 0) {
+            return result;
+        } else {
+            return randomOddNumber();
+        }
+    }
+
+    yield randomOddNumber();
+    yield randomOddNumber();
+    yield randomOddNumber();
 }
+
+
 const randomizer = random(100)
 console.log(randomizer.next().value)
 console.log(randomizer.next().value)
@@ -114,6 +136,8 @@ console.log(randomizer.next().value)
  */
 async function generateArray() {
     const arr = [53,342,3,235,63,56,546,457]
+    await new Promise((resolve,reject )=>{
+        setTimeout(()=> resolve(arr),1000 )});
     /**
      * Ваш код тут
      * 1. await new Promise ...
@@ -127,6 +151,7 @@ function f() {
      * Ваш код тут
      * 1. вызвать асинхронную функцию, и отобразить ее результат
      */
+    generateArray().then((resol)=>{console.log(resol)})
 }
 
 f();
